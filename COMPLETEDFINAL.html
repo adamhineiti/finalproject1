@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    I have learned so much more about coding since you left and have been learning all types of things and I owe it to you!
+  Good luck on your job and wish you the very best in life! (Hoping you dont take points off for this message lol)
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINAL</title>
+    <style>
+        html {
+            box-sizing: border-box
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit
+        }
+
+        html {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%
+        }
+
+        body {
+            margin: 0
+        }
+
+        .blue {
+            background-color: blue;
+            padding: 40px;
+        }
+
+        .right {
+            float: right;
+        }
+        .content{
+            padding: 10px;
+        }
+        button{
+            background-color: white;
+            color: black;
+            border: 1px solid white;
+            margin: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="blue" id="nav">
+        <div class="clearfix">
+            <div class="right">
+                <button onclick="showGradeList()">Grade view</button>
+                <button onclick="addGrade()">Add grade</button>
+            </div>
+        </div>
+
+    </nav>
+    <br>
+    <br>
+    <div class="content">
+        <div class="login" id="login">
+            <input class="username" id="username" placeholder="Username" />
+            <input class="password" id="password" placeholder="Password" />
+            <br>
+            <button class="submit" onclick="login()">log in</button>
+            <br>
+            <span id="loginError"></span>
+        </div>
+        <div id="gradelist">
+            Grades
+            <div class="grade-items">
+
+            </div>
+        </div>
+        <div id="addgrade">
+            <input type="text" class="name" id="name" placeholder="Student name">
+            <input type="text" class="grade" id="grade" placeholder="Grade">
+            <br>
+            <button class="submit" onclick="addGradeSubmit()">submit grade</button>
+            <br>
+            <span id="addGradeError"></span>
+        </div>
+
+    </div>
+
+    </div>
+
+    <script>
+
+document.getElementById("addgrade").style.display = "none";
+document.getElementById("gradelist").style.display = "none";
+document.getElementById("nav").style.display = "none";
+var grades = [];
+function addGrade(){
+
+    document.getElementById("addgrade").style.display = "block";
+    document.getElementById("gradelist").style.display = "none";
+
+}
+function addGradeSubmit(){
+
+    var name = document.getElementById("name").value;
+    var grade = document.getElementById("grade").value;
+    
+    // check if name and grade are empty
+    if(name == "" || grade == ""){
+
+        document.getElementById("addGradeError").innerHTML = "Please enter a name and grade";
+        return;
+    }
+
+    if(isNaN(grade)){
+
+        document.getElementById("addGradeError").innerHTML = "Grade must be a number";
+        return;
+    }
+
+    if(grade < 0 || grade > 100){
+
+        document.getElementById("addGradeError").innerHTML = "Grade must be between 0 and 100";
+        return;
+    }
+
+    document.getElementById("name").value = "";
+    document.getElementById("grade").value = "";
+
+    grades.push({name: name, grade: grade});
+
+    showGradeList();
+}
+function showGradeList(){
+    console.log(grades);
+
+    document.getElementById("gradelist").style.display = "block";
+    document.getElementById("addgrade").style.display = "block";
+    console.log(document.getElementById("gradelist").style.display);
+
+    document.getElementById("addgrade").style.display = "none";
+    document.getElementById("login").style.display = "none";
+
+    document.getElementById("gradelist").innerHTML = "";
+
+    for(var i = 0; i < grades.length; i++){
+
+        var newDiv = document.createElement("div");
+
+        newDiv.innerHTML = "student name: "+grades[i].name + " grade: " + grades[i].grade;
+
+        document.getElementById("gradelist").appendChild(newDiv);
+    }
+}
+function login(){
+
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    // check if username and password are empty
+    if(username == "" || password == ""){
+        // show error msg on id loginError
+        document.getElementById("loginError").innerHTML = "You didn't type  anything Valid";
+        return;
+    }
+
+    if(username == "cool" || password == "password"){
+
+        document.getElementById("nav").style.display = "block";
+
+
+        document.getElementById("login").style.display = "none";
+        showGradeList();
+    }else{
+
+        document.getElementById("loginError").innerHTML = "You didn't type  anything Valid";
+    }
+}
+    </script>
+</body>
+
+</html>
